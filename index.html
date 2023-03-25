@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Internet Radio</title>
+    <style>
+      /* FONT*/
+      @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+      /* Style the play button */
+      button {
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+      }
+
+      #docsButton {
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background-color: #0071c5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+      }
+      h1 {
+        font-family: "Nunito", sans-serif;
+      }
+      /* Style the pause button */
+      button.pause {
+        background-color: #f44336;
+      }
+
+      /* Style the button */
+      #docsButton button {
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background-color: #2d82d1;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+      }
+
+      /* Style the popup */
+      #popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+        display: none;
+        font-family: "Nunito", sans-serif;
+      }
+
+      #popup h2 {
+        font-size: 2em;
+        margin-top: 0;
+        font-family: "Nunito", sans-serif;
+      }
+
+      #popup p {
+        font-size: 1.5em;
+        font-family: "Nunito", sans-serif;
+      }
+
+      #popup button {
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background-color: #d82d2d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+      }
+      button.contact-me-docs {
+        font-size: 0.25em;
+        padding: 10px 20px;
+        background-color: #2dd87a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+      }
+
+      #contactEmail {
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      #songName {
+        font-size: 1.25em;
+        padding: 10px 20px;
+        background-color: #000000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-family: "Nunito", sans-serif;
+      }
+    </style>
+    <link rel="icon" type="image/x-icon" href="radio.favicon" />
+  </head>
+  <body>
+    <h1 id="webpage-title">My Internet Radio</h1>
+    <audio id="myAudio"></audio>
+    <button id="playButton" onclick="toggleAudio()">Play</button>
+
+    <button id="docsButton" onclick="openPopup()">How to use</button>
+
+    <div id="popup">
+      <h2>How to use Jayparm's Online Radio</h2>
+      <p>
+        Hello, thanks for trying my online radio. While it's not an actual
+        radio, just a button linked to play a music file at random and then
+        repeat that action. I think it's still rather impressive. <br /><br />
+        To start, simply press Play, if you don't like the song then press Pause
+        and then play again. It may take a couple of tries
+
+        <button id="contact-me-docs">Contact Jayparm</button>
+      </p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+
+    <button
+      id="contactEmail"
+      onclick="window.location.href='mailto:jayparm.business@gmail.com'"
+      style="
+        font-size: 1.5em;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      "
+    >
+      Contact Jayparm by Email
+    </button>
+
+    <!-- Appzi: Capture Insightful Feedback -->
+
+    <script async src="https://w.appzi.io/w.js?token=gNhpl"></script>
+
+    <!-- End Appzi -->
+
+    <div id="songName">Now playing:</div>
+
+    <script>
+      const audioFolder = "/music/";
+      const audioFiles = [
+        "Cola by Camelphat & Elderbrook.mp3",
+        "What Is Love (7 Mix) by Haddaway.mp3",
+      ];
+      const audio = document.getElementById("myAudio");
+      let isPlaying = false;
+
+      function toggleAudio() {
+        if (isPlaying) {
+          pauseAudio();
+        } else {
+          playAudio();
+        }
+
+      }
+
+      function playAudio() {
+        const randomAudio =
+          audioFolder +
+          audioFiles[Math.floor(Math.random() * audioFiles.length)];
+        audio.src = randomAudio;
+        audio.play();
+        isPlaying = true;
+        document.getElementById("playButton").innerText = "Pause";
+        document.getElementById("playButton").classList.add("pause");
+
+        // Now playing
+        const audioFile = audio.src.split("/").pop(); // get the current audio file name
+        const trackName = audioFile
+          .replace(/%20/g, " ")
+          .replace(".mp3", "")
+          .replace(/E2/g, "'");
+        const words = trackName.split(" ");
+        const formattedSongName = words
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+        document.getElementById(
+          "songName"
+        ).innerHTML = `Now Playing: ${formattedSongName}`;
+      }
+
+      function pauseAudio() {
+        audio.pause();
+        isPlaying = false;
+        document.getElementById("playButton").innerText = "Play";
+        document.getElementById("playButton").classList.remove("pause");
+      }
+
+      audio.addEventListener("ended", function () {
+        isPlaying = false;
+        document.getElementById("playButton").innerText = "Play";
+        document.getElementById("playButton").classList.remove("pause");
+      });
+
+      function openPopup() {
+        document.getElementById("popup").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
