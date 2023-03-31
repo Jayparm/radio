@@ -2,6 +2,22 @@
 <html>
   <head>
     <title>My Internet Radio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--BOOTSTRAP CSS & JS-->
+    <!--<link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
+    !-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       /* FONT*/
       @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
@@ -133,12 +149,12 @@
         repeat that action. I think it's still rather impressive. <br /><br />
         To start, simply press Play, if you don't like the song then press Pause
         and then play again. It may take a couple of tries
-        <br><br> 
-        COPYRIGHT DISCLAIMER: THIS PROJECT IS PERSONAL AND FOR FRIENDS ONLY, I USE THIS PRIVATELY. NO REVENUE IS MADE FROM THIS WEBSITE.
-        <br><br>
-        Currently, there are a few bugs:
-        1. A new song will not play after a song is already done.
-        2. Music does not play while on Github pages
+        <br /><br />
+        COPYRIGHT DISCLAIMER: THIS PROJECT IS PERSONAL AND FOR FRIENDS ONLY, I
+        USE THIS PRIVATELY. NO REVENUE IS MADE FROM THIS WEBSITE.
+        <br /><br />
+        Currently, there are a few bugs: 1. A new song will not play after a
+        song is already done. 2. Music does not play while on Github pages
         <button id="contact-me-docs">Contact Jayparm</button>
       </p>
       <button onclick="closePopup()">Close</button>
@@ -166,13 +182,14 @@
 
     <!-- End Appzi -->
 
-    <div id="songName">Now playing:</div>
+    <div id="songName">Press the play button to start</div>
 
     <script>
       const audioFolder = "https://jayparm.github.io/radio/music/";
       const audioFiles = [
         "Cola by Camelphat & Elderbrook.mp3",
         "What Is Love (7 Mix) by Haddaway.mp3",
+        "Last Last by Burna Boy.mp3"
       ];
       const audio = document.getElementById("myAudio");
       let isPlaying = false;
@@ -183,7 +200,6 @@
         } else {
           playAudio();
         }
-
       }
 
       function playAudio() {
@@ -222,6 +238,11 @@
         isPlaying = false;
         document.getElementById("playButton").innerText = "Play";
         document.getElementById("playButton").classList.remove("pause");
+        if(audioPlaying === false) {
+        audio.currentTime = 0;
+        audio.play(audioFiles);
+        isPlaying = true
+        } 
       });
 
       function openPopup() {
@@ -231,6 +252,7 @@
       function closePopup() {
         document.getElementById("popup").style.display = "none";
       }
+      
     </script>
   </body>
 </html>
