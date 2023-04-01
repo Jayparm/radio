@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Internet Radio</title>
+    <title>Jayparm's Internet Radio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--BOOTSTRAP CSS & JS-->
     <!--<link
@@ -185,13 +185,18 @@
     <div id="songName">Press the play button to start</div>
 
     <script>
-      const audioFolder = "https://jayparm.github.io/radio/music/";
+      const localFolder = `/music/`
+      const onlineFolder = "https://jayparm.github.io/radio/music/"
+      const audioFolder = onlineFolder; // Change variable value to change from local or online saves.
       const audioFiles = [
         "Cola by Camelphat & Elderbrook.mp3",
         "What Is Love (7 Mix) by Haddaway.mp3",
         "Last Last by Burna Boy.mp3",
         "First Time by Medina & M-22.mp3",
-        "Baby by Aitch & Ashanti.mp3"
+        "Baby by Aitch & Ashanti.mp3",
+        "Deepest Blue - Radio Edit by Deepest Blue.mp3",
+        "low life in love by Eric Reprid, Jonah Zed.mp3",
+        "Still Choose You by Mustard & The Kid LAROI.mp3"
       ];
       const audio = document.getElementById("myAudio");
       let isPlaying = false;
@@ -206,7 +211,7 @@
 
       function playAudio() {
         const randomAudio =
-          audioFolder +
+          audioFolder + // Add extra plus to require christmas songs (when it's created)
           audioFiles[Math.floor(Math.random() * audioFiles.length)];
         audio.src = randomAudio;
         audio.play();
@@ -240,13 +245,12 @@
         isPlaying = false;
         document.getElementById("playButton").innerText = "Play";
         document.getElementById("playButton").classList.remove("pause");
-        if(audioPlaying === false) {
-        audio.currentTime = 0;
-        audio.play(audioFiles);
-        isPlaying = true
-        } 
       });
 
+      if(isPlaying() === false) {
+        playAudio()
+        isPlaying = true
+      }
       function openPopup() {
         document.getElementById("popup").style.display = "block";
       }
